@@ -147,7 +147,7 @@ export default async function NewsletterArticlePage({
         <div className="mx-auto flex max-w-4xl items-center justify-between gap-4">
           <Link
             href="/newsletter"
-            className="inline-flex items-center gap-1.5 text-[13.5px] font-semibold opacity-70 transition hover:opacity-100"
+            className="inline-flex items-center gap-1.5 font-display text-[14px] font-bold tracking-[-0.02em] opacity-75 transition hover:opacity-100"
           >
             <ArrowLeft className="h-4 w-4" />
             All Issues
@@ -155,11 +155,11 @@ export default async function NewsletterArticlePage({
 
           <Link
             href="/newsletter"
-            className="inline-flex items-center gap-2 font-display text-[17px] font-black tracking-tight transition hover:opacity-85"
+            className="inline-flex items-center gap-2 font-display text-[17px] font-extrabold tracking-[-0.03em] transition hover:opacity-85"
           >
             <span
               style={{ backgroundColor: design.accentColor }}
-              className="flex h-6 w-6 items-center justify-center rounded-md font-mono text-[10px] font-black text-white"
+              className="flex h-6 w-6 items-center justify-center rounded-md font-display text-[11px] font-extrabold text-white"
             >
               SV
             </span>
@@ -169,7 +169,7 @@ export default async function NewsletterArticlePage({
           <a
             href="#subscribe-footer"
             style={{ backgroundColor: design.accentColor }}
-            className="rounded-full px-4 py-1.5 text-[12.5px] font-bold text-white transition hover:opacity-90"
+            className="rounded-full px-4 py-1.5 font-display text-[13px] font-bold text-white transition hover:opacity-90"
           >
             Subscribe
           </a>
@@ -197,7 +197,7 @@ export default async function NewsletterArticlePage({
             {design.issueLabel && (
               <span
                 style={{ backgroundColor: design.accentColor }}
-                className="rounded-full px-3 py-0.5 font-mono text-[11px] font-bold uppercase tracking-wider text-white"
+                className="rounded-full px-3 py-0.5 font-display text-[12px] font-bold tracking-[-0.01em] text-white"
               >
                 {design.issueLabel}
               </span>
@@ -207,7 +207,7 @@ export default async function NewsletterArticlePage({
                 <span
                   key={tag}
                   style={{ color: design.accentColor }}
-                  className="rounded-full border border-current/25 px-3 py-0.5 font-mono text-[11px] font-bold uppercase tracking-wider"
+                  className="rounded-full border border-current/25 px-3 py-0.5 font-display text-[12px] font-bold tracking-[-0.01em]"
                 >
                   {tag}
                 </span>
@@ -225,8 +225,8 @@ export default async function NewsletterArticlePage({
           </div>
 
           <h1
-            className={`mt-4 font-extrabold leading-[1.15] tracking-tight ${magazine
-              ? "text-[36px] uppercase sm:text-[46px]"
+            className={`mt-4 font-display font-extrabold leading-[1.12] tracking-[-0.03em] ${magazine
+              ? "text-[36px] sm:text-[46px]"
               : "text-[32px] sm:text-[42px]"
               }`}
           >
@@ -352,9 +352,9 @@ export default async function NewsletterArticlePage({
           >
             <p
               style={{ color: design.accentColor }}
-              className="font-mono text-[11px] font-bold uppercase tracking-[0.14em]"
+              className="font-display text-[13px] font-bold tracking-[-0.01em]"
             >
-              SAAS VIBES NEWSLETTER
+              SaaS Vibes Newsletter
             </p>
             <h2 className="mt-1.5 text-[22px] font-extrabold tracking-tight">
               Enjoyed this breakdown? Get the next one in your inbox.

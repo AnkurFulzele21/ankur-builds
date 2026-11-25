@@ -61,8 +61,8 @@ export function ScrollRevealText({
         >
           {eyebrow && (
             <p
-              className={`mb-6 font-mono-tech text-[12px] font-bold uppercase tracking-[0.24em] ${
-                theme === "dark" ? "text-[#F4A938]" : "text-[#0E1B2A]/80"
+              className={`mb-6 font-display text-[14px] font-bold tracking-[-0.02em] ${
+                theme === "dark" ? "text-[#F4A938]" : "text-[#F04E18]"
               }`}
             >
               {eyebrow}

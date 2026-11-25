@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { NewsletterScrollReset } from "@/components/NewsletterScrollReset";
 
 export const metadata: Metadata = {
   alternates: {
@@ -46,6 +47,7 @@ export default function NewsletterLayout({ children }: { children: React.ReactNo
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
+      <NewsletterScrollReset />
       {children}
     </>
   );

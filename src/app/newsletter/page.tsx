@@ -232,6 +232,15 @@ export default function NewsletterLandingPage() {
   }, []);
 
   useEffect(() => {
+    if (typeof window !== "undefined") {
+      if ("scrollRestoration" in window.history) {
+        window.history.scrollRestoration = "manual";
+      }
+      if (!window.location.hash) {
+        window.scrollTo(0, 0);
+      }
+    }
+
     const ctx = gsap.context(() => {
       const tl = gsap.timeline({
         scrollTrigger: {
@@ -297,6 +306,10 @@ export default function NewsletterLandingPage() {
       });
     }, showcaseRef);
 
+    if (typeof window !== "undefined" && !window.location.hash) {
+      window.requestAnimationFrame(() => window.scrollTo(0, 0));
+    }
+
     return () => ctx.revert();
   }, []);
 
@@ -338,12 +351,12 @@ export default function NewsletterLandingPage() {
             <span className="inline-flex h-9 w-9 items-center justify-center rounded-xl border-2 border-[#0E1B2A] bg-[#F04E18] text-white shadow-[2px_2px_0px_#0E1B2A]">
               <Sparkles className="h-4 w-4" />
             </span>
-            <span className="font-display text-lg font-extrabold uppercase tracking-[-0.03em] text-[#0E1B2A]">
+            <span className="font-display text-[19px] font-extrabold tracking-[-0.03em] text-[#0E1B2A]">
               SaaS <span className="text-[#F04E18]">Vibes</span>
             </span>
           </Link>
 
-          <nav className="hidden items-center gap-6 font-mono-tech text-[11.5px] font-bold uppercase tracking-[0.18em] text-[#0E1B2A]/75 md:flex">
+          <nav className="hidden items-center gap-7 font-display text-[14px] font-bold tracking-[-0.02em] text-[#0E1B2A]/80 md:flex">
             <a href="#inside-issues" className="transition hover:text-[#F04E18]">
               Inside
             </a>
@@ -393,8 +406,8 @@ export default function NewsletterLandingPage() {
               <span className="inline-flex h-8 w-8 items-center justify-center rounded-xl border-2 border-[#0E1B2A] bg-[#F04E18] text-white shadow-[2px_2px_0px_#0E1B2A]">
                 <Sparkles className="h-4 w-4" />
               </span>
-              <span className="font-mono-tech text-[11px] font-bold uppercase tracking-[0.16em] text-[#F04E18]">
-                EVERY WEDNESDAY &amp; SUNDAY · VIBE.SHIP.REPEAT.
+              <span className="font-display text-[13.5px] font-bold tracking-[-0.02em] text-[#F04E18]">
+                Every Wednesday &amp; Sunday · Vibe. Ship. Repeat.
               </span>
             </div>
 
@@ -409,7 +422,7 @@ export default function NewsletterLandingPage() {
               distribution plays you can actually steal.
             </p>
 
-            {/* Overlapping Builder Avatars + Reader Count */}
+            {/* Overlapping Builder Avatars + Reader Line (number hidden) */}
             <div className="mt-4 flex items-center gap-3">
               <div className="flex -space-x-2">
                 {[
@@ -422,16 +435,14 @@ export default function NewsletterLandingPage() {
                   <span
                     key={av.initials}
                     style={{ backgroundColor: av.bg }}
-                    className="inline-flex h-8 w-8 items-center justify-center rounded-full border-2 border-[#F8EAE0] font-mono-tech text-[10px] font-extrabold text-white shadow-xs"
+                    className="inline-flex h-8 w-8 items-center justify-center rounded-full border-2 border-[#F8EAE0] font-display text-[10.5px] font-bold text-white shadow-xs"
                   >
                     {av.initials}
                   </span>
                 ))}
               </div>
-              <p className="font-display text-[13px] font-bold text-[#0E1B2A]">
-                {subCount > 0
-                  ? `${subCount}+ solo builders, indie hackers & recovering overthinkers.`
-                  : "Built for solo builders, indie hackers & recovering overthinkers."}
+              <p className="font-display text-[13.5px] font-bold tracking-[-0.02em] text-[#0E1B2A]">
+                + solo founders, indie hackers &amp; recovering overthinkers.
               </p>
             </div>
 
@@ -486,7 +497,7 @@ export default function NewsletterLandingPage() {
                   />
 
                   {/* iOS Status Bar + Dynamic Island */}
-                  <div className="flex items-center justify-between px-4 pb-2 pt-2.5 font-mono-tech text-[9.5px] font-bold text-[#0E1B2A]">
+                  <div className="flex items-center justify-between px-4 pb-2 pt-2.5 font-display text-[10px] font-bold text-[#0E1B2A]">
                     <span>9:14</span>
                     <span className="flex h-[18px] w-[74px] items-center justify-end rounded-full bg-[#0B121C] px-2">
                       <span className="h-2 w-2 rounded-full bg-[#1E3A5F]" />
@@ -496,15 +507,15 @@ export default function NewsletterLandingPage() {
 
                   {/* Mail Header */}
                   <div className="border-b border-[#0E1B2A]/10 px-3.5 pb-2.5 pt-1">
-                    <p className="font-mono-tech text-[8.5px] font-bold uppercase tracking-wider text-[#F04E18]">
-                      WEDNESDAY BUILD · SAAS VIBES
+                    <p className="font-display text-[9.5px] font-bold text-[#F04E18]">
+                      Wednesday Build · SaaS Vibes
                     </p>
                     <p className="mt-0.5 font-display text-[13.5px] font-extrabold leading-tight text-[#0E1B2A]">
                       How I Vibe-Coded a Micro-SaaS in 72 Hours
                     </p>
                     <div className="mt-1.5 flex items-center justify-between text-[9.5px] text-[#0E1B2A]/60">
                       <div className="flex items-center gap-1.5">
-                        <span className="inline-flex h-5 w-5 items-center justify-center rounded-full bg-[#0E1B2A] font-mono-tech text-[8px] font-bold text-[#F8EAE0]">
+                        <span className="inline-flex h-5 w-5 items-center justify-center rounded-full bg-[#0E1B2A] font-display text-[8.5px] font-bold text-[#F8EAE0]">
                           AF
                         </span>
                         <div>
@@ -518,9 +529,9 @@ export default function NewsletterLandingPage() {
 
                   {/* Email Body */}
                   <div className="flex-1 px-3.5 pt-2.5 text-left">
-                    <div className="flex items-center justify-center gap-1 font-display text-[11px] font-extrabold uppercase tracking-tight text-[#0E1B2A]">
+                    <div className="flex items-center justify-center gap-1 font-display text-[11.5px] font-extrabold tracking-tight text-[#0E1B2A]">
                       <span className="inline-block h-2 w-2 rounded-full bg-[#F04E18]" />
-                      SAAS VIBES
+                      SaaS Vibes
                     </div>
 
                     <h3 className="mt-2 font-display text-[13.5px] font-extrabold leading-tight text-[#0E1B2A]">
@@ -539,8 +550,8 @@ export default function NewsletterLandingPage() {
                           <br />
                           Sprint Teardown
                         </p>
-                        <span className="mt-1.5 inline-block rounded-full bg-[#0E1B2A] px-2 py-0.5 font-mono-tech text-[7.5px] font-bold uppercase text-[#F8EAE0]">
-                          WEDNESDAY BUILD
+                        <span className="mt-1.5 inline-block rounded-full bg-[#0E1B2A] px-2 py-0.5 font-display text-[8px] font-bold text-[#F8EAE0]">
+                          Wednesday Build
                         </span>
                       </div>
                       <div className="flex h-11 w-11 items-center justify-center rounded-full border-2 border-white/35 bg-white/15">
@@ -578,8 +589,8 @@ export default function NewsletterLandingPage() {
         ref={showcaseRef}
         className="relative flex h-[100svh] w-full flex-col items-center justify-center overflow-hidden bg-[#F8EAE0] px-4"
       >
-        <h2 className="relative z-10 mb-4 text-center font-display text-[clamp(2.8rem,7vw,5.8rem)] font-extrabold uppercase leading-none tracking-[-0.04em] text-[#0E1B2A]">
-          INSIDE SAAS VIBES
+        <h2 className="relative z-10 mb-4 text-center font-display text-[clamp(2.6rem,6.5vw,5.2rem)] font-extrabold leading-none tracking-[-0.04em] text-[#0E1B2A]">
+          Inside SaaS Vibes
         </h2>
 
         <div
@@ -597,13 +608,13 @@ export default function NewsletterLandingPage() {
               href="#archive"
               className="flex h-[44svh] min-h-[320px] w-[72vw] max-w-[320px] flex-col justify-between border border-[#D5C7B8] bg-[#F5EFE6] p-6 text-[#0E1B2A] shadow-[0_24px_44px_rgba(14,27,42,0.2)] transition-transform duration-200 hover:scale-105 sm:w-[26vw]"
             >
-              <div className="flex items-center justify-between border-b border-[#0E1B2A]/15 pb-2 font-mono-tech text-[10.5px] uppercase">
-                <span>EVERY WEDNESDAY · SAAS STORY</span>
-                <span className="font-bold text-[#F04E18]">FREE</span>
+              <div className="flex items-center justify-between border-b border-[#0E1B2A]/15 pb-2 font-display text-[12px] font-bold tracking-[-0.01em]">
+                <span>Every Wednesday · SaaS Story</span>
+                <span className="text-[#F04E18]">Free</span>
               </div>
               <div className="my-auto py-3">
-                <span className="inline-block rounded-full bg-[#0E1B2A] px-3 py-1 font-mono-tech text-[10px] font-bold uppercase text-[#F8EAE0]">
-                  THE SAAS STORY
+                <span className="inline-block rounded-full bg-[#0E1B2A] px-3 py-1 font-display text-[11.5px] font-bold text-[#F8EAE0]">
+                  The SaaS Story
                 </span>
                 <p className="mt-4 font-display text-2xl font-extrabold leading-tight sm:text-3xl">
                   One Real Vibe-Coded SaaS, Dissected
@@ -628,8 +639,8 @@ export default function NewsletterLandingPage() {
               className="flex h-[46svh] min-h-[340px] w-[74vw] max-w-[335px] flex-col justify-between border-[12px] border-[#0E1B2A] bg-white p-6 text-[#0E1B2A] shadow-[0_26px_48px_rgba(14,27,42,0.28)] transition-transform duration-200 hover:scale-105 sm:w-[27vw]"
             >
               <div className="text-center">
-                <span className="inline-block rounded-full bg-[#F04E18] px-3 py-1 font-mono-tech text-[10.5px] font-bold uppercase text-white">
-                  EVERY SUNDAY · WEEKEND BRIEF
+                <span className="inline-block rounded-full bg-[#F04E18] px-3 py-1 font-display text-[12px] font-bold text-white">
+                  Every Sunday · Weekend Brief
                 </span>
                 <h3 className="mt-4 font-display text-2xl font-extrabold leading-tight sm:text-3xl">
                   Your 5-Minute SaaS &amp; AI Cheat Sheet
@@ -639,9 +650,9 @@ export default function NewsletterLandingPage() {
                 Trending SaaS news, SaaS of the Week, the Vibe Toolkit, plug-and-play Skills &amp;
                 GitHub Repos, and one Distribution Play before Monday hits.
               </div>
-              <div className="flex items-center justify-between font-mono-tech text-[11.5px] font-bold uppercase text-[#0E1B2A]">
-                <span>SAAS VIBES</span>
-                <span className="text-[#F04E18]">READ NOW →</span>
+              <div className="flex items-center justify-between font-display text-[13px] font-bold text-[#0E1B2A]">
+                <span>SaaS Vibes</span>
+                <span className="text-[#F04E18]">Read Now →</span>
               </div>
             </a>
           </div>
@@ -658,24 +669,24 @@ export default function NewsletterLandingPage() {
               className="flex h-[44svh] min-h-[325px] w-[72vw] max-w-[325px] flex-col justify-between border border-[#0E1B2A]/20 bg-[#FAF7F2] p-6 text-[#0E1B2A] shadow-[0_24px_44px_rgba(14,27,42,0.24)] transition-transform duration-200 hover:scale-105 sm:w-[26vw]"
             >
               <div className="bg-[#1D2D24] p-4 text-white">
-                <p className="font-mono-tech text-[11px] uppercase text-[#F4A938]">
-                  NO FLUFF · ZERO HYPE
+                <p className="font-display text-[12px] font-bold text-[#F4A938]">
+                  No Fluff · Zero Hype
                 </p>
                 <p className="mt-1.5 font-display text-2xl font-bold leading-tight">
-                  BUILT FOR CASH-FLOWING MACHINES
+                  Built for cash-flowing machines
                 </p>
               </div>
               <div className="space-y-1.5">
-                <span className="font-mono-tech text-[11px] font-bold uppercase text-[#F04E18]">
-                  REAL REVENUE &gt; PROMPT THREADS
+                <span className="font-display text-[13px] font-bold text-[#F04E18]">
+                  Real revenue &gt; prompt threads
                 </span>
                 <p className="text-[13.5px] leading-snug text-[#0E1B2A]/85">
                   Becoming a &ldquo;prompt engineer&rdquo; on X doesn&apos;t pay the bills.
                   Shipping small, useful software that solves real pain does.
                 </p>
               </div>
-              <div className="border-t-2 border-[#0E1B2A] pt-2.5 font-display text-base font-extrabold uppercase">
-                BROWSE ARCHIVE →
+              <div className="border-t-2 border-[#0E1B2A] pt-2.5 font-display text-base font-extrabold">
+                Browse Archive →
               </div>
             </a>
           </div>
@@ -696,8 +707,8 @@ export default function NewsletterLandingPage() {
               className="w-44 cursor-grab select-none bg-white p-2.5 pb-6 shadow-[0_16px_30px_rgba(14,27,42,0.25)] active:cursor-grabbing sm:w-52"
             >
               <div className="flex h-24 flex-col justify-between bg-gradient-to-br from-[#F04E18] to-[#0E1B2A] p-3 text-white">
-                <span className="font-mono-tech text-[9px] uppercase text-[#F4A938]">
-                  SUNDAY RITUAL
+                <span className="font-display text-[11px] font-bold text-[#F4A938]">
+                  Sunday Ritual
                 </span>
                 <span className="font-display text-sm font-bold">Coffee + SaaS Vibes</span>
               </div>
@@ -720,14 +731,14 @@ export default function NewsletterLandingPage() {
               className="w-36 cursor-grab select-none border-4 border-dashed border-[#0E1B2A] bg-white p-2 shadow-[0_14px_26px_rgba(14,27,42,0.24)] active:cursor-grabbing sm:w-40"
             >
               <div className="bg-[#F04E18] p-3 text-white">
-                <p className="font-mono-tech text-[9px] font-bold uppercase">INDIA POST // AI</p>
+                <p className="font-display text-[10.5px] font-bold">India Post · AI</p>
                 <p className="mt-1.5 font-display text-base font-extrabold leading-tight">
-                  SAAS
+                  SaaS
                   <br />
-                  VIBES
+                  Vibes
                 </p>
-                <p className="mt-1.5 font-mono-tech text-[9px] uppercase text-[#F8EAE0]">
-                  5 MIN READ
+                <p className="mt-1.5 font-display text-[10.5px] font-bold text-[#F8EAE0]">
+                  5 min read
                 </p>
               </div>
             </motion.div>
@@ -746,9 +757,9 @@ export default function NewsletterLandingPage() {
               dragMomentum
               whileDrag={{ scale: 1.1 }}
               data-cursor="drag"
-              className="cursor-grab select-none border-2 border-[#0E1B2A] bg-[#F4A938] px-4 py-1.5 font-display text-base font-extrabold uppercase tracking-tight text-[#0E1B2A] shadow-[4px_4px_0px_#0E1B2A] active:cursor-grabbing"
+              className="cursor-grab select-none border-2 border-[#0E1B2A] bg-[#F4A938] px-4 py-1.5 font-display text-base font-extrabold tracking-tight text-[#0E1B2A] shadow-[4px_4px_0px_#0E1B2A] active:cursor-grabbing"
             >
-              ZERO AI FLUFF
+              Zero AI Fluff
             </motion.div>
           </div>
 
@@ -765,9 +776,9 @@ export default function NewsletterLandingPage() {
               dragMomentum
               whileDrag={{ scale: 1.1 }}
               data-cursor="drag"
-              className="cursor-grab select-none border-2 border-[#0E1B2A] bg-[#4D7C5B] px-4 py-2 font-mono-tech text-xs font-bold uppercase text-white shadow-[4px_4px_0px_#0E1B2A] active:cursor-grabbing"
+              className="cursor-grab select-none border-2 border-[#0E1B2A] bg-[#4D7C5B] px-4 py-2 font-display text-[13.5px] font-bold text-white shadow-[4px_4px_0px_#0E1B2A] active:cursor-grabbing"
             >
-              100% REAL BUILDS
+              100% Real Builds
             </motion.div>
           </div>
         </div>
@@ -778,7 +789,7 @@ export default function NewsletterLandingPage() {
       {/* ===================================================================== */}
       <ScrollRevealText
         theme="cream"
-        eyebrow="WHY SAAS VIBES EXISTS"
+        eyebrow="Why SaaS Vibes exists"
         trackHeightClass="h-[300vh]"
         sizeClass="text-[30px] sm:text-[50px] lg:text-[62px]"
         text="Another '10x your life with ChatGPT' thread isn't going to ship your SaaS. SaaS Vibes hands you the real 7-day builds, tested repos, and scrappy growth plays that turn weekend code into Monday revenue."
@@ -811,10 +822,10 @@ export default function NewsletterLandingPage() {
       {/* ===================================================================== */}
       <section id="why-subscribe" className="mx-auto max-w-6xl px-5 py-16 sm:px-8 sm:py-24">
         <div className="text-center">
-          <p className="font-mono-tech text-[12px] font-bold uppercase tracking-[0.22em] text-[#F04E18]">
-            EVERY WEDNESDAY &amp; SUNDAY
+          <p className="font-display text-[14px] font-bold tracking-[-0.02em] text-[#F04E18]">
+            Every Wednesday &amp; Sunday
           </p>
-          <h2 className="mt-2 font-display text-3xl font-extrabold uppercase tracking-[-0.04em] text-[#0E1B2A] sm:text-5xl">
+          <h2 className="mt-2 font-display text-3xl font-extrabold tracking-[-0.04em] text-[#0E1B2A] sm:text-5xl">
             What lands in your inbox
           </h2>
         </div>
@@ -823,21 +834,21 @@ export default function NewsletterLandingPage() {
           {[
             {
               icon: Rocket,
-              tag: "01 · EVERY WEDNESDAY",
+              tag: "01 · Every Wednesday",
               title: "The Wednesday SaaS Story",
               desc: "One deep, zero-BS case study on how a solo founder vibe-coded a product fast and got people to pull out their credit cards. Stack, prompts, pricing, and scars included.",
               accent: "#F04E18",
             },
             {
               icon: Cpu,
-              tag: "02 · EVERY SUNDAY",
+              tag: "02 · Every Sunday",
               title: "The Sunday Weekend Brief",
               desc: "Five tight blocks in 5 minutes: Trending SaaS News, SaaS of the Week, Vibe Toolkit, Skills & Repos, and The Distribution Play—filtered strictly for builders.",
               accent: "#F4A938",
             },
             {
               icon: Flame,
-              tag: "03 · WHY SUBSCRIBE",
+              tag: "03 · Why Subscribe",
               title: "Skip the 4-Hour Rabbit Hole",
               desc: "Stop doomscrolling X pretending it's 'market research.' We test the tools, dig up the repos, and hand you what works—plus you unlock our AI Builder Vault the second you join.",
               accent: "#26465C",
@@ -856,7 +867,7 @@ export default function NewsletterLandingPage() {
                   >
                     <Icon className="h-5 w-5" />
                   </div>
-                  <p className="mt-5 font-mono-tech text-[11px] font-bold uppercase tracking-widest text-[#0E1B2A]/60">
+                  <p className="mt-5 font-display text-[13px] font-bold tracking-[-0.01em] text-[#0E1B2A]/60">
                     {item.tag}
                   </p>
                   <h3 className="mt-1.5 font-display text-2xl font-extrabold tracking-tight text-[#0E1B2A]">
@@ -877,8 +888,8 @@ export default function NewsletterLandingPage() {
       {/* ===================================================================== */}
       <section className="mx-auto max-w-6xl px-5 pb-16 sm:px-8 sm:pb-20">
         <div className="mb-8 text-center">
-          <p className="font-mono-tech text-[11.5px] font-bold uppercase tracking-[0.22em] text-[#F04E18]">
-            HONEST FILTER
+          <p className="font-display text-[14px] font-bold tracking-[-0.02em] text-[#F04E18]">
+            Honest Filter
           </p>
           <h2 className="mt-1.5 font-display text-3xl font-extrabold tracking-[-0.03em] text-[#0E1B2A] sm:text-4xl">
             Is SaaS Vibes actually for you?
@@ -888,7 +899,7 @@ export default function NewsletterLandingPage() {
         <div className="grid gap-6 md:grid-cols-2">
           {/* Subscribe If */}
           <div className="rounded-[26px] border-2 border-[#0E1B2A] bg-white p-7 shadow-[6px_6px_0px_#0E1B2A]">
-            <p className="inline-flex items-center gap-2 rounded-full bg-emerald-50 px-3.5 py-1 font-mono-tech text-[11px] font-bold uppercase tracking-wider text-emerald-700">
+            <p className="inline-flex items-center gap-2 rounded-full bg-emerald-50 px-3.5 py-1 font-display text-[13px] font-bold text-emerald-700">
               <CheckCircle2 className="h-3.5 w-3.5" />
               Subscribe if:
             </p>
@@ -919,7 +930,7 @@ export default function NewsletterLandingPage() {
 
           {/* Skip This If */}
           <div className="rounded-[26px] border-2 border-[#0E1B2A]/20 bg-[#FAF7F2] p-7">
-            <p className="inline-flex items-center gap-2 rounded-full bg-[#F04E18]/10 px-3.5 py-1 font-mono-tech text-[11px] font-bold uppercase tracking-wider text-[#F04E18]">
+            <p className="inline-flex items-center gap-2 rounded-full bg-[#F04E18]/10 px-3.5 py-1 font-display text-[13px] font-bold text-[#F04E18]">
               <XCircle className="h-3.5 w-3.5" />
               Skip this if:
             </p>
@@ -958,7 +969,7 @@ export default function NewsletterLandingPage() {
       {/* ===================================================================== */}
       <main id="archive" className="mx-auto max-w-6xl px-5 pb-28 pt-8 sm:px-8">
         {loading ? (
-          <div className="flex items-center justify-center gap-2.5 py-24 font-mono-tech text-[13px] font-bold uppercase tracking-widest text-[#0E1B2A]/70">
+          <div className="flex items-center justify-center gap-2.5 py-24 font-display text-[14px] font-bold text-[#0E1B2A]/70">
             <Loader2 className="h-4 w-4 animate-spin text-[#F04E18]" />
             Loading SaaS Vibes issues...
           </div>
@@ -984,8 +995,8 @@ export default function NewsletterLandingPage() {
             {/* Featured Issue Spotlight */}
             {featured && selectedCat === "All" && (
               <section className="mb-14">
-                <p className="mb-3.5 font-mono-tech text-[11.5px] font-bold uppercase tracking-[0.22em] text-[#F04E18]">
-                  FEATURED · WEDNESDAY STORY
+                <p className="mb-3.5 font-display text-[14px] font-bold tracking-[-0.02em] text-[#F04E18]">
+                  Featured · Wednesday Story
                 </p>
                 <motion.div
                   data-cursor="read"
@@ -1006,22 +1017,22 @@ export default function NewsletterLandingPage() {
                         />
                       ) : (
                         <div className="flex h-full w-full flex-col justify-between bg-gradient-to-br from-[#26465C] via-[#0E1B2A] to-[#1D1726] p-6 text-left">
-                          <span className="self-start rounded-full bg-[#F04E18] px-3 py-1 font-mono-tech text-[10.5px] font-bold uppercase tracking-wider text-white">
-                            FEATURED // {featured.category}
+                          <span className="self-start rounded-full bg-[#F04E18] px-3 py-1 font-display text-[12px] font-bold text-white">
+                            Featured · {featured.category}
                           </span>
                           <p className="font-display text-2xl font-extrabold leading-tight text-[#F8EAE0]">
                             {featured.title}
                           </p>
                         </div>
                       )}
-                      <span className="absolute bottom-3 right-3 rounded-md bg-black/80 px-2.5 py-1 font-mono-tech text-[11px] font-bold text-white backdrop-blur-sm">
+                      <span className="absolute bottom-3 right-3 rounded-md bg-black/80 px-2.5 py-1 font-display text-[11.5px] font-bold text-white backdrop-blur-sm">
                         {featured.read_time}
                       </span>
                     </div>
 
                     <div className="flex flex-col justify-between p-7 sm:p-10 lg:col-span-7">
                       <div>
-                        <div className="flex flex-wrap items-center gap-2.5 font-mono-tech text-[11px] font-bold uppercase tracking-wider text-[#0E1B2A]/65">
+                        <div className="flex flex-wrap items-center gap-2.5 font-display text-[12.5px] font-bold text-[#0E1B2A]/65">
                           <span className="rounded-full bg-[#F8EAE0] px-3 py-1 text-[#0E1B2A]">
                             {featured.category}
                           </span>
@@ -1079,8 +1090,8 @@ export default function NewsletterLandingPage() {
                     className="w-44 rounded-full border-2 border-[#0E1B2A]/20 bg-white py-1.5 pl-8 pr-3.5 text-[12.5px] font-medium text-[#0E1B2A] outline-none transition focus:border-[#0E1B2A] sm:w-56"
                   />
                 </div>
-                <span className="font-mono-tech text-[12px] font-bold uppercase tracking-widest text-[#0E1B2A]/70">
-                  {filtered.length} {filtered.length === 1 ? "ISSUE" : "ISSUES"}
+                <span className="font-display text-[13px] font-bold text-[#0E1B2A]/70">
+                  {filtered.length} {filtered.length === 1 ? "issue" : "issues"}
                 </span>
               </div>
             </div>
@@ -1142,7 +1153,7 @@ export default function NewsletterLandingPage() {
                             />
                           ) : (
                             <div className="flex h-full w-full flex-col justify-between bg-gradient-to-br from-[#1B3344] via-[#0E1B2A] to-[#1D1726] p-4 text-left">
-                              <span className="self-start rounded-full bg-white/15 px-2.5 py-0.5 font-mono-tech text-[10px] font-bold uppercase text-[#F8EAE0] backdrop-blur-md">
+                              <span className="self-start rounded-full bg-white/15 px-2.5 py-0.5 font-display text-[11.5px] font-bold text-[#F8EAE0] backdrop-blur-md">
                                 {post.category}
                               </span>
                               <p className="line-clamp-2 font-display text-lg font-bold leading-tight text-white">
@@ -1151,7 +1162,7 @@ export default function NewsletterLandingPage() {
                             </div>
                           )}
 
-                          <span className="absolute bottom-2.5 right-2.5 rounded-md bg-black/80 px-2 py-0.5 font-mono-tech text-[10.5px] font-bold text-white backdrop-blur-sm">
+                          <span className="absolute bottom-2.5 right-2.5 rounded-md bg-black/80 px-2 py-0.5 font-display text-[11px] font-bold text-white backdrop-blur-sm">
                             {post.read_time}
                           </span>
                         </div>
@@ -1161,7 +1172,7 @@ export default function NewsletterLandingPage() {
                             const d = extractDesign(post.template_blocks);
                             const postTags = d.tags && d.tags.length > 0 ? d.tags : [post.category];
                             return (
-                              <p className="font-mono-tech text-[11px] font-bold uppercase tracking-wider text-[#F04E18]">
+                              <p className="font-display text-[12.5px] font-bold text-[#F04E18]">
                                 {d.issueLabel ? `${d.issueLabel} · ` : ""}
                                 {postTags.join(" · ")} · {formatDate(post.published_at || post.created_at)}
                               </p>
@@ -1198,8 +1209,8 @@ export default function NewsletterLandingPage() {
       {/* ===================================================================== */}
       <section className="mx-auto max-w-6xl px-5 pb-20 sm:px-8">
         <div className="mb-8 text-center">
-          <p className="font-mono-tech text-[11.5px] font-bold uppercase tracking-[0.22em] text-[#F04E18]">
-            LOVED BY INDIE BUILDERS
+          <p className="font-display text-[14px] font-bold tracking-[-0.02em] text-[#F04E18]">
+            Loved by indie builders
           </p>
           <h2 className="mt-1.5 font-display text-2xl font-extrabold tracking-[-0.03em] text-[#0E1B2A] sm:text-4xl">
             Why founders open SaaS Vibes first
@@ -1243,7 +1254,7 @@ export default function NewsletterLandingPage() {
               <div className="mt-5 flex items-center gap-3">
                 <span
                   style={{ backgroundColor: t.bg }}
-                  className="flex h-10 w-10 items-center justify-center rounded-full font-mono-tech text-[11px] font-extrabold text-white"
+                  className="flex h-10 w-10 items-center justify-center rounded-full font-display text-[12px] font-extrabold text-white"
                 >
                   {t.initials}
                 </span>
@@ -1251,7 +1262,7 @@ export default function NewsletterLandingPage() {
                   <p className="font-display text-[14px] font-extrabold text-[#0E1B2A]">
                     {t.name}
                   </p>
-                  <p className="font-mono-tech text-[11.5px] text-[#0E1B2A]/55">{t.handle}</p>
+                  <p className="font-display text-[12.5px] font-medium text-[#0E1B2A]/55">{t.handle}</p>
                 </div>
               </div>
             </div>
@@ -1288,12 +1299,12 @@ export default function NewsletterLandingPage() {
           <text
             fill="#F8EAE0"
             fontSize="20"
-            fontWeight="800"
-            letterSpacing="4"
-            fontFamily="sans-serif"
+            fontWeight="700"
+            letterSpacing="2"
+            fontFamily="Space Grotesk, sans-serif"
           >
             <textPath href="#saasVibesCircle">
-              • VIBE. SHIP. REPEAT. • TWO EMAILS A WEEK •
+              • Vibe. Ship. Repeat. • Two emails a week •
             </textPath>
           </text>
         </svg>
@@ -1315,8 +1326,8 @@ export default function NewsletterLandingPage() {
             />
           </div>
 
-          <p className="mt-4 font-mono-tech text-[11.5px] font-bold uppercase tracking-[0.18em] text-[#F8EAE0]/60">
-            VIBE. SHIP. REPEAT. · TWO EMAILS A WEEK, ZERO FLUFF.
+          <p className="mt-4 font-display text-[13.5px] font-bold tracking-[-0.01em] text-[#F8EAE0]/65">
+            Vibe. Ship. Repeat. · Two emails a week, zero fluff.
           </p>
         </div>
       </section>
