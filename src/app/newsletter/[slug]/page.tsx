@@ -158,11 +158,13 @@ export default async function NewsletterArticlePage({
             href="/newsletter"
             className="inline-flex items-center gap-2 font-display text-[17px] font-extrabold tracking-[-0.03em] transition hover:opacity-85"
           >
-            <span
-              style={{ backgroundColor: design.accentColor }}
-              className="flex h-6 w-6 items-center justify-center rounded-md font-display text-[11px] font-extrabold text-white"
-            >
-              SV
+            <span className="flex h-7 w-7 items-center justify-center overflow-hidden rounded-lg border border-[#0E1B2A]/20 bg-[#0E1B2A]">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src="/assets/brand/site-icon.png"
+                alt="SaaS Vibes"
+                className="h-full w-full object-cover"
+              />
             </span>
             SaaS Vibes
           </Link>

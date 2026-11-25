@@ -3,7 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { ArrowLeft, Mail, Menu, X } from "lucide-react";
+import { Mail, Menu, X } from "lucide-react";
 
 const NAV_ITEMS = [
   { label: "About Me", href: "/about" },
@@ -34,14 +34,13 @@ export function SiteSubpageHeader({ theme = "cream" }: { theme?: "cream" | "navy
             isNavy ? "text-[#F8EAE0]" : "text-[#0E1B2A]"
           }`}
         >
-          <span
-            className={`inline-flex h-8 w-8 items-center justify-center rounded-xl border-2 shadow-[2px_2px_0px_#F04E18] ${
-              isNavy
-                ? "border-white/25 bg-white/10 text-white"
-                : "border-[#0E1B2A] bg-[#0E1B2A] text-[#F8EAE0]"
-            }`}
-          >
-            <ArrowLeft className="h-4 w-4" />
+          <span className="inline-flex h-8 w-8 items-center justify-center overflow-hidden rounded-xl border-2 border-[#0E1B2A] bg-[#0E1B2A] shadow-[2px_2px_0px_#F04E18]">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src="/assets/brand/site-icon.png"
+              alt="Ankur Fulzele"
+              className="h-full w-full object-cover"
+            />
           </span>
           <span>Ankur Fulzele</span>
         </Link>

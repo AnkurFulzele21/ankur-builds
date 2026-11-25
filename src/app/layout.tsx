@@ -17,18 +17,28 @@ export const metadata: Metadata = {
   title: "Ankur Fulzele — Ship SaaS on vibes.",
   description:
     "Ship SaaS on vibes. Interactive studio of Ankur Fulzele (ankurfulzele.in) — vibe-coding micro-SaaS products with AI, shipping in public, and publishing SaaS Vibes every Wednesday & Sunday.",
+  icons: {
+    icon: [
+      { url: "/favicon.ico", sizes: "any" },
+      { url: "/icon.png", type: "image/png", sizes: "512x512" },
+    ],
+    apple: [{ url: "/apple-icon.png", sizes: "180x180", type: "image/png" }],
+    shortcut: ["/favicon.ico"],
+  },
   openGraph: {
     title: "Ankur Fulzele — Ship SaaS on vibes.",
     description:
       "Ship SaaS on vibes. Vibe-coding micro-SaaS products with AI, shipping in public, and publishing the SaaS Vibes newsletter every Wednesday & Sunday.",
     siteName: "SaaS Vibes · Ankur Fulzele",
     type: "website",
+    images: [{ url: "/assets/brand/site-icon.png", width: 512, height: 512, alt: "Ankur Fulzele" }],
   },
   twitter: {
     card: "summary_large_image",
     title: "Ankur Fulzele — Ship SaaS on vibes.",
     description:
       "Ship SaaS on vibes. Vibe-coding micro-SaaS with AI, real teardowns, GitHub repos & distribution plays.",
+    images: ["/assets/brand/site-icon.png"],
   },
 };
 

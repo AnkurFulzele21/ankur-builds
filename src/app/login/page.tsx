@@ -111,8 +111,13 @@ export default function AdminLoginPage() {
       <div className="w-full max-w-md rounded-[28px] border-2 border-[#0E1B2A] bg-white p-8 shadow-[8px_8px_0px_#0E1B2A]">
         <div className="flex items-center justify-between">
           <Link href="/newsletter" className="flex items-center gap-2 font-display font-extrabold">
-            <span className="flex h-8 w-8 items-center justify-center rounded-xl border-2 border-[#0E1B2A] bg-[#F04E18] text-white shadow-[2px_2px_0px_#0E1B2A]">
-              <Sparkles className="h-4 w-4" />
+            <span className="flex h-8 w-8 items-center justify-center overflow-hidden rounded-xl border-2 border-[#0E1B2A] bg-[#0E1B2A] shadow-[2px_2px_0px_#0E1B2A]">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src="/assets/brand/site-icon.png"
+                alt="SaaS Vibes"
+                className="h-full w-full object-cover"
+              />
             </span>
             <span>
               SaaS <span className="text-[#F04E18]">Vibes</span>

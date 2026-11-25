@@ -71,8 +71,13 @@ export function AdminShell({
                 className="flex items-center gap-2.5 py-1"
                 title="SaaS Vibes Studio"
               >
-                <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-xl bg-[#0E1B2A] text-white">
-                  <Sparkles className="h-4 w-4 text-[#F04E18]" />
+                <span className="flex h-8 w-8 shrink-0 items-center justify-center overflow-hidden rounded-xl border border-[#0E1B2A]/15 bg-[#0E1B2A]">
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
+                    src="/assets/brand/site-icon.png"
+                    alt="SaaS Vibes"
+                    className="h-full w-full object-cover"
+                  />
                 </span>
                 {!sidebarCollapsed && (
                   <div className="leading-tight">

@@ -378,8 +378,13 @@ export function NewsletterLandingClient({
             data-magnetic="true"
             className="inline-flex items-center gap-2.5"
           >
-            <span className="inline-flex h-9 w-9 items-center justify-center rounded-xl border-2 border-[#0E1B2A] bg-[#F04E18] text-white shadow-[2px_2px_0px_#0E1B2A]">
-              <Sparkles className="h-4 w-4" />
+            <span className="inline-flex h-9 w-9 items-center justify-center overflow-hidden rounded-xl border-2 border-[#0E1B2A] bg-[#0E1B2A] shadow-[2px_2px_0px_#0E1B2A]">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src="/assets/brand/site-icon.png"
+                alt="SaaS Vibes"
+                className="h-full w-full object-cover"
+              />
             </span>
             <span className="font-display text-[19px] font-extrabold tracking-[-0.03em] text-[#0E1B2A]">
               SaaS <span className="text-[#F04E18]">Vibes</span>
@@ -453,8 +458,13 @@ export function NewsletterLandingClient({
           >
             {/* Brand Badge + Wednesday & Sunday Eyebrow */}
             <div className="inline-flex flex-wrap items-center gap-2">
-              <span className="inline-flex h-8 w-8 items-center justify-center rounded-xl border-2 border-[#0E1B2A] bg-[#F04E18] text-white shadow-[2px_2px_0px_#0E1B2A]">
-                <Sparkles className="h-4 w-4" />
+              <span className="inline-flex h-8 w-8 items-center justify-center overflow-hidden rounded-xl border-2 border-[#0E1B2A] bg-[#0E1B2A] shadow-[2px_2px_0px_#0E1B2A]">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src="/assets/brand/site-icon.png"
+                  alt="SaaS Vibes"
+                  className="h-full w-full object-cover"
+                />
               </span>
               <span className="font-display text-[13.5px] font-bold tracking-[-0.02em] text-[#F04E18]">
                 Every Wednesday &amp; Sunday · Vibe. Ship. Repeat.
