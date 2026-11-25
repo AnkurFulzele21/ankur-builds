@@ -46,7 +46,7 @@ export default function AdminLoginPage() {
               SaaS <span className="text-[#F04E18]">Vibes</span>
             </span>
           </Link>
-          <span className="inline-flex items-center gap-1 rounded-full bg-[#F8EAE0] px-2.5 py-1 font-mono-tech text-[10.5px] font-bold uppercase text-[#0E1B2A]">
+          <span className="inline-flex items-center gap-1 rounded-full bg-[#F8EAE0] px-2.5 py-1 font-display text-[11.5px] font-bold text-[#0E1B2A]">
             <Lock className="h-3 w-3 text-[#F04E18]" />
             Studio Login
           </span>

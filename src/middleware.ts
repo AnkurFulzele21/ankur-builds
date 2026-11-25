@@ -27,15 +27,22 @@ export async function middleware(request: NextRequest) {
   } = await supabase.auth.getUser();
 
   if (request.nextUrl.pathname.startsWith("/admin")) {
-    const allowedEmail = process.env.ADMIN_EMAIL?.trim().toLowerCase();
+    const allowedEmails = (process.env.ADMIN_EMAIL || "")
+      .split(",")
+      .map((e) => e.trim().toLowerCase())
+      .filter(Boolean);
+    const userEmail = user?.email?.toLowerCase() || "";
     const isAuthorized =
       Boolean(user) &&
-      (!allowedEmail || user?.email?.toLowerCase() === allowedEmail);
+      (allowedEmails.length === 0 || allowedEmails.includes(userEmail));
 
     if (!isAuthorized) {
       const loginUrl = request.nextUrl.clone();
       loginUrl.pathname = "/login";
       loginUrl.searchParams.set("next", request.nextUrl.pathname);
+      if (user) {
+        loginUrl.searchParams.set("error", "unauthorized");
+      }
       return NextResponse.redirect(loginUrl);
     }
   }
