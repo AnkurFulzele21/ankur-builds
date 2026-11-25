@@ -429,14 +429,21 @@ export function NewsletterLandingClient({
       {/* ===================================================================== */}
       <section
         id="subscribe-hero"
-        style={{
-          backgroundImage:
-            "radial-gradient(rgba(14, 27, 42, 0.12) 1.25px, transparent 1.25px)",
-          backgroundSize: "24px 24px",
-        }}
-        className="relative flex min-h-[calc(100svh-68px)] items-center overflow-hidden px-5 py-6 sm:px-8 sm:py-8"
+        className="relative flex min-h-[calc(100svh-68px)] items-center px-5 pb-14 pt-6 sm:px-8 sm:pb-12 sm:pt-8"
       >
-        <div className="mx-auto grid w-full max-w-6xl items-center gap-8 lg:grid-cols-12 lg:gap-10">
+        {/* Seamless dot-grid backdrop that dissolves smoothly into #F8EAE0 with zero horizontal section line */}
+        <div
+          aria-hidden="true"
+          style={{
+            backgroundImage:
+              "radial-gradient(rgba(14, 27, 42, 0.12) 1.25px, transparent 1.25px)",
+            backgroundSize: "24px 24px",
+            maskImage: "linear-gradient(to bottom, black 68%, transparent 100%)",
+            WebkitMaskImage: "linear-gradient(to bottom, black 68%, transparent 100%)",
+          }}
+          className="pointer-events-none absolute inset-0"
+        />
+        <div className="relative z-10 mx-auto grid w-full max-w-6xl items-center gap-8 lg:grid-cols-12 lg:gap-10">
           {/* LEFT COLUMN: Compact Brand Mark + Bold Headline + Avatars + Stacked Form (All in 1 frame!) */}
           <motion.div
             initial={{ opacity: 0, y: 18 }}
@@ -630,7 +637,7 @@ export function NewsletterLandingClient({
       <section
         id="inside-issues"
         ref={showcaseRef}
-        className="relative flex h-[100svh] w-full flex-col items-center justify-center overflow-hidden bg-[#F8EAE0] px-4"
+        className="relative flex h-[100svh] w-full flex-col items-center justify-center overflow-hidden bg-transparent px-4"
       >
         <h2 className="relative z-10 mb-4 text-center font-display text-[clamp(2.6rem,6.5vw,5.2rem)] font-extrabold leading-none tracking-[-0.04em] text-[#0E1B2A]">
           Inside SaaS Vibes
