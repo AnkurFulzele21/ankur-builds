@@ -21,6 +21,7 @@ export default function BeehiivAdminPostsPage() {
     const { data } = await supabase
       .from("newsletter_posts")
       .select("*")
+      .neq("category", "__founder_pitch__")
       .order("updated_at", { ascending: false });
     setPosts((data ?? []) as NewsletterPostRow[]);
     setLoading(false);

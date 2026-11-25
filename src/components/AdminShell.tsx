@@ -6,6 +6,7 @@ import { usePathname, useRouter } from "next/navigation";
 import {
   Compass,
   FileText,
+  Inbox,
   LayoutDashboard,
   LogOut,
   MailCheck,
@@ -43,6 +44,7 @@ export function AdminShell({
   const nav = [
     { label: "Dashboard", href: "/admin", icon: LayoutDashboard, exact: true },
     { label: "Posts", href: "/admin/posts", icon: FileText },
+    { label: "Founder Pitches", href: "/admin/stories", icon: Inbox },
     { label: "Sequences", href: "/admin/sequences", icon: MailCheck },
     { label: "Audience", href: "/admin/subscribers", icon: Users },
     { label: "Grow & Forms", href: "/admin/grow", icon: TrendingUp },

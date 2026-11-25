@@ -52,7 +52,11 @@ export default function BeehiivAdminDashboard() {
     async function load() {
       const supabase = createClient();
       const [pRes, sRes, dRes, uRes] = await Promise.all([
-        supabase.from("newsletter_posts").select("*").order("created_at", { ascending: false }),
+        supabase
+          .from("newsletter_posts")
+          .select("*")
+          .neq("category", "__founder_pitch__")
+          .order("created_at", { ascending: false }),
         supabase.from("subscribers").select("*").order("subscribed_at", { ascending: false }),
         supabase
           .from("email_dispatches")

@@ -227,6 +227,7 @@ export function MicaelaFooter({
         className="absolute bottom-[62px] left-1/2 z-40 flex -translate-x-1/2 flex-nowrap items-center justify-center gap-1.5 whitespace-nowrap will-change-transform sm:bottom-7 sm:left-8 sm:translate-x-0 sm:gap-2"
       >
         {[
+          { label: "Share Your Story", href: "/newsletter/share-your-story" },
           { label: "Privacy", href: "/privacy" },
           { label: "Terms", href: "/terms" },
           { label: "Unsubscribe", href: "/unsubscribe" },

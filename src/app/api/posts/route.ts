@@ -17,6 +17,7 @@ export async function GET(request: Request) {
   let query = supabase
     .from("newsletter_posts")
     .select("*")
+    .neq("category", "__founder_pitch__")
     .order("published_at", { ascending: false, nullsFirst: true })
     .order("created_at", { ascending: false });
 
