@@ -3,6 +3,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ArrowLeft, Calendar, Clock } from "lucide-react";
 import { SubscribeBox } from "@/components/SubscribeBox";
+import { ScrollToSubscribeButton } from "@/components/ScrollToSubscribeButton";
 import { NewsletterCardRenderer } from "@/components/NewsletterCardRenderer";
 import { createClient } from "@/lib/supabase/server";
 import type { NewsletterPostRow } from "@/lib/beehiiv-db";
@@ -166,13 +167,7 @@ export default async function NewsletterArticlePage({
             SaaS Vibes
           </Link>
 
-          <a
-            href="#subscribe-footer"
-            style={{ backgroundColor: design.accentColor }}
-            className="rounded-full px-4 py-1.5 font-display text-[13px] font-bold text-white transition hover:opacity-90"
-          >
-            Subscribe
-          </a>
+          <ScrollToSubscribeButton accentColor={design.accentColor} />
         </div>
       </header>
 
