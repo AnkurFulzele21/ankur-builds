@@ -1,0 +1,35 @@
+[
+  {
+    "id": "issue-1",
+    "slug": "how-i-built-a-multi-tenant-lms-saas-in-one-weekend",
+    "title": "How I Built a Multi-Tenant LMS SaaS in One Weekend (Next.js + Supabase + R2)",
+    "excerpt": "Most people spend 6 months planning their SaaS architecture. Here is the exact 20% stack I used to ship auth, PostgreSQL RLS, Razorpay webhooks, and a course player in days.",
+    "category": "SaaS Building",
+    "readTime": "4 min read",
+    "publishedAt": "2026-11-22",
+    "featured": true,
+    "content": "Most developers over-engineer before getting their first user.\n\nWhen I started building CourseForge, I set one rule: **zero unnecessary complexity**.\n\n### The Exact Stack That Shipped It\n1. **Next.js App Router + Tailwind CSS:** One codebase for the landing page, student portal, course player, and admin studio.\n2. **Supabase PostgreSQL + Row Level Security:** Instead of writing 50 middleware permission checks, PostgreSQL itself verifies `auth.uid()` on every single query.\n3. **Cloudflare R2:** $0 egress fees for streaming course videos—unlike AWS S3, bandwidth won't eat your margins.\n4. **Webhook-Driven Payments (Razorpay):** Never trust a browser redirect to unlock a paid course. Let the signed webhook unlock `enrollments` automatically.\n\n### The Biggest Lesson\nShipping beats perfection every single time. Build the ugly working version first, connect the real database on day one, and polish the UI once real rows are flowing."
+  },
+  {
+    "id": "issue-2",
+    "slug": "spec-first-vibe-coding-without-spaghetti-code",
+    "title": "Spec-First Vibe Coding: How to Ship 5x Faster Without Spaghetti Code",
+    "excerpt": "Prompting AI blindly gives you a pretty demo that breaks in production. Here is the 3-step spec checklist I use before letting AI write a single line of code.",
+    "category": "Vibe Coding",
+    "readTime": "3 min read",
+    "publishedAt": "2026-11-18",
+    "featured": false,
+    "content": "AI coding agents are ridiculously fast—which means they can build the wrong architecture 10x faster if your spec is vague.\n\n### My 3-Step Vibe Coding Rule\n1. **Lock the Database Schema First:** Write your SQL tables and relationships before building UI screens. Good schemas prevent 80% of bugs.\n2. **Pick One Design Language:** Don't let every page invent new colors. Pick a clean warm-monochrome palette and reuse one shared shell component.\n3. **Verify Every Build Step:** Run `tsc --noEmit` and a production build after every milestone so errors never pile up.\n\nShip small, verify fast, repeat."
+  },
+  {
+    "id": "issue-3",
+    "slug": "automating-x-growth-with-n8n-and-zero-api-cost",
+    "title": "Growing @AnkurBuilds From Scratch Using n8n & Cross-Niche Viral Hooks",
+    "excerpt": "Distribution beats code. Here is how I automated daily viral hook research across psychology, writing, and indie hacking without paying for X's API.",
+    "category": "Growth",
+    "readTime": "3 min read",
+    "publishedAt": "2026-11-15",
+    "featured": false,
+    "content": "Nobody discovers a great SaaS sitting quietly on localhost.\n\nInstead of staring at a blank tweet box every morning, I built a local **Dual-Stream Viral Engine**:\n- **Stream A:** Scrapes proven high-engagement formats from outside tech (Naval, Justin Welsh, psychology, storytelling).\n- **Stream B:** Captures fresh conversations inside SaaS, vibe coding, and AI agents.\n- **Anti-AI-Slop Gate:** Strips corporate buzzwords, hashtags, and em-dashes so every draft sounds like a real builder.\n\nResult: 15 minutes of reviewing and shipping content every morning, leaving the rest of the day to build products."
+  }
+]

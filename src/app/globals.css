@@ -1,0 +1,79 @@
+@import "tailwindcss";
+
+:root {
+  color-scheme: light;
+  --riso-slate: #26465c;
+  --riso-ink: #0e1b2a;
+  --riso-cream: #f8eae0;
+  --riso-coral: #f04e18;
+  --riso-amber: #f4a938;
+}
+
+html {
+  -webkit-tap-highlight-color: transparent;
+  overflow-x: clip;
+  overscroll-behavior-y: none;
+}
+
+body {
+  font-family: "Space Grotesk", -apple-system, BlinkMacSystemFont, sans-serif;
+  overflow-x: clip;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* Hide native OS cursor cleanly on desktop when the 3D Mouse CustomCursor is active */
+@media (pointer: fine) {
+  html.custom-cursor-active,
+  html.custom-cursor-active * {
+    cursor: none !important;
+  }
+}
+
+/* Tight-tracked editorial grotesk matching Trevor Noah (Die Grotesk) & two26.studio */
+.font-display {
+  font-family: "Space Grotesk", -apple-system, BlinkMacSystemFont, sans-serif;
+  letter-spacing: -0.04em;
+}
+
+.font-mono-tech {
+  font-family: "JetBrains Mono", ui-monospace, monospace;
+}
+
+/* Tall ultra-condensed poster font matching micaeladl.xyz background marquee */
+.font-condensed {
+  font-family: "Anton", Impact, "Arial Narrow", sans-serif;
+  letter-spacing: -0.01em;
+}
+
+@keyframes marqueeRightToLeft {
+  0% {
+    transform: translate3d(0%, 0, 0);
+  }
+  100% {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+
+.animate-marquee-rtl {
+  display: flex;
+  width: max-content;
+  animation: marqueeRightToLeft 18s linear infinite;
+  will-change: transform;
+}
+
+/* Authentic Risograph / Editorial Print paper grain overlay */
+.riso-grain {
+  position: relative;
+}
+
+.riso-grain::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.045;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  z-index: 1;
+}
