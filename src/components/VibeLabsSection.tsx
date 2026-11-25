@@ -5,7 +5,7 @@ import Link from "next/link";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { motion } from "framer-motion";
-import { ArrowUpRight } from "lucide-react";
+import { ArrowUpRight, ChevronLeft, ChevronRight } from "lucide-react";
 import { ScrollRevealText } from "@/components/ScrollRevealText";
 import type { PortfolioProjectRow } from "@/lib/beehiiv-db";
 
@@ -50,6 +50,43 @@ export function VibeLabsSection({ subscriberCount }: VibeLabsSectionProps) {
   const cardRefs = useRef<(HTMLDivElement | null)[]>([]);
 
   const [hoveredIdx, setHoveredIdx] = useState<number | null>(null);
+
+  // Horizontal swipe/drag state synced seamlessly with the vertical scroll arc!
+  const scrollProgressRef = useRef(0);
+  const swipeOffsetRef = useRef(0);
+  const layoutArcFnRef = useRef<((p: number) => void) | null>(null);
+  const dragStateRef = useRef<{
+    active: boolean;
+    startX: number;
+    startY: number;
+    startOffset: number;
+    lockedAxis: "x" | "y" | null;
+    didDrag: boolean;
+  }>({ active: false, startX: 0, startY: 0, startOffset: 0, lockedAxis: null, didDrag: false });
+
+  function applyCombinedArc() {
+    const raw = scrollProgressRef.current + swipeOffsetRef.current;
+    const clamped = Math.max(-0.08, Math.min(1.08, raw));
+    layoutArcFnRef.current?.(clamped);
+  }
+
+  function nudgeCarousel(direction: -1 | 1) {
+    // Step ~1 card left or right smoothly
+    const target = Math.max(
+      -scrollProgressRef.current + 0.08,
+      Math.min(1 - scrollProgressRef.current - 0.08, swipeOffsetRef.current + direction * 0.16)
+    );
+    const proxy = { v: swipeOffsetRef.current };
+    gsap.to(proxy, {
+      v: target,
+      duration: 0.42,
+      ease: "power2.out",
+      onUpdate: () => {
+        swipeOffsetRef.current = proxy.v;
+        applyCombinedArc();
+      },
+    });
+  }
 
   const arcCards: ArcCardItem[] = [
     {
@@ -175,6 +212,7 @@ export function VibeLabsSection({ subscriberCount }: VibeLabsSectionProps) {
           });
         }
 
+        layoutArcFnRef.current = layoutArc;
         layoutArc(0);
 
         const arcProxy = { p: 0 };
@@ -199,7 +237,10 @@ export function VibeLabsSection({ subscriberCount }: VibeLabsSectionProps) {
           p: 1,
           duration: 0.5,
           ease: "none",
-          onUpdate: () => layoutArc(arcProxy.p),
+          onUpdate: () => {
+            scrollProgressRef.current = arcProxy.p;
+            applyCombinedArc();
+          },
         },
         0
       );
@@ -368,18 +409,103 @@ export function VibeLabsSection({ subscriberCount }: VibeLabsSectionProps) {
           className="relative z-10 mb-2 text-center will-change-transform sm:mb-3"
         >
           <p className="font-mono-tech text-[10px] font-bold uppercase tracking-[0.22em] text-[#F04E18] sm:text-[11px]">
-            SCROLL TO EXPLORE · CLICK ANY CARD
+            SCROLL OR SWIPE LEFT / RIGHT · TAP ANY CARD
           </p>
           <h2 className="mt-1 font-display text-[clamp(2.5rem,6.6vw,5.6rem)] font-extrabold uppercase leading-none tracking-[-0.04em] text-[#0E1B2A]">
             VIBE LABS
           </h2>
         </div>
 
-        {/* Semicircle Rainbow Arc Stage (studioloop.com.br Awwwards motion!) */}
+        {/* Semicircle Rainbow Arc Stage — Supports BOTH vertical scroll AND horizontal swipe/drag! */}
         <div
           ref={collageWrapRef}
-          className="relative flex h-[62svh] w-full items-center justify-center will-change-transform sm:h-[66svh]"
+          onTouchStart={(e) => {
+            const t = e.touches[0];
+            if (!t) return;
+            dragStateRef.current = {
+              active: true,
+              startX: t.clientX,
+              startY: t.clientY,
+              startOffset: swipeOffsetRef.current,
+              lockedAxis: null,
+              didDrag: false,
+            };
+          }}
+          onTouchMove={(e) => {
+            const d = dragStateRef.current;
+            const t = e.touches[0];
+            if (!d.active || !t) return;
+            const dx = t.clientX - d.startX;
+            const dy = t.clientY - d.startY;
+            if (!d.lockedAxis && (Math.abs(dx) > 8 || Math.abs(dy) > 8)) {
+              d.lockedAxis = Math.abs(dx) >= Math.abs(dy) ? "x" : "y";
+            }
+            if (d.lockedAxis === "x") {
+              d.didDrag = true;
+              const vw = Math.max(320, window.innerWidth);
+              const next = d.startOffset - (dx / vw) * 0.65;
+              const minOff = -scrollProgressRef.current + 0.04;
+              const maxOff = 1 - scrollProgressRef.current - 0.04;
+              swipeOffsetRef.current = Math.max(minOff, Math.min(maxOff, next));
+              applyCombinedArc();
+            }
+          }}
+          onTouchEnd={() => {
+            dragStateRef.current.active = false;
+            dragStateRef.current.lockedAxis = null;
+          }}
+          onMouseDown={(e) => {
+            if (e.button !== 0) return;
+            dragStateRef.current = {
+              active: true,
+              startX: e.clientX,
+              startY: e.clientY,
+              startOffset: swipeOffsetRef.current,
+              lockedAxis: "x",
+              didDrag: false,
+            };
+          }}
+          onMouseMove={(e) => {
+            const d = dragStateRef.current;
+            if (!d.active) return;
+            const dx = e.clientX - d.startX;
+            if (Math.abs(dx) > 8) {
+              d.didDrag = true;
+              const vw = Math.max(640, window.innerWidth);
+              const next = d.startOffset - (dx / vw) * 0.85;
+              const minOff = -scrollProgressRef.current + 0.04;
+              const maxOff = 1 - scrollProgressRef.current - 0.04;
+              swipeOffsetRef.current = Math.max(minOff, Math.min(maxOff, next));
+              applyCombinedArc();
+            }
+          }}
+          onMouseUp={() => {
+            dragStateRef.current.active = false;
+          }}
+          onMouseLeave={() => {
+            dragStateRef.current.active = false;
+          }}
+          className="relative flex h-[62svh] w-full cursor-grab select-none items-center justify-center touch-pan-y will-change-transform active:cursor-grabbing sm:h-[66svh]"
         >
+          {/* Left / Right Quick-Slide Controls */}
+          <div className="pointer-events-none absolute inset-x-3 bottom-2 z-40 flex items-center justify-center gap-3 sm:bottom-4">
+            <button
+              type="button"
+              aria-label="Slide cards left"
+              onClick={() => nudgeCarousel(-1)}
+              className="pointer-events-auto inline-flex h-10 w-10 items-center justify-center rounded-full border-2 border-[#0E1B2A] bg-[#F8EAE0]/95 text-[#0E1B2A] shadow-[3px_3px_0px_#0E1B2A] transition hover:-translate-y-0.5 hover:bg-white active:translate-y-0"
+            >
+              <ChevronLeft className="h-5 w-5" />
+            </button>
+            <button
+              type="button"
+              aria-label="Slide cards right"
+              onClick={() => nudgeCarousel(1)}
+              className="pointer-events-auto inline-flex h-10 w-10 items-center justify-center rounded-full border-2 border-[#0E1B2A] bg-[#F8EAE0]/95 text-[#0E1B2A] shadow-[3px_3px_0px_#0E1B2A] transition hover:-translate-y-0.5 hover:bg-white active:translate-y-0"
+            >
+              <ChevronRight className="h-5 w-5" />
+            </button>
+          </div>
           {arcCards.map((card, idx) => {
             const isHovered = hoveredIdx === idx;
             const neighborPush =
@@ -418,6 +544,13 @@ export function VibeLabsSection({ subscriberCount }: VibeLabsSectionProps) {
                 >
                   <Link
                     href={card.href}
+                    draggable={false}
+                    onClick={(e) => {
+                      if (dragStateRef.current.didDrag) {
+                        e.preventDefault();
+                        dragStateRef.current.didDrag = false;
+                      }
+                    }}
                     data-cursor="read"
                     style={{ backgroundColor: card.bg, color: card.text }}
                     className={`group flex h-[41svh] min-h-[285px] max-h-[430px] w-[64vw] max-w-[248px] flex-col justify-between overflow-hidden rounded-[22px] border border-black/10 p-5 transition-shadow duration-300 sm:h-[48svh] sm:min-h-[340px] sm:w-[320px] sm:max-w-none sm:rounded-[24px] sm:p-7 lg:w-[365px] ${

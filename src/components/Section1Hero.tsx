@@ -200,12 +200,12 @@ export function Section1Hero() {
       {/* LAYER 1 (BACK, z-10): Giant Bold Uppercase "ANKUR FULZELE" directly BEHIND the 3D physical objects! */}
       <h1
         ref={titleRef}
-        className="pointer-events-none absolute left-0 right-0 top-[25%] z-10 select-none whitespace-nowrap px-2 text-center font-display text-[11.5vw] font-extrabold uppercase leading-[0.88] tracking-[-0.03em] text-[#F04E18] will-change-transform sm:top-[16%] sm:text-[12.6vw] lg:top-[8%] lg:text-[13.5vw]"
+        className="pointer-events-none absolute left-0 right-0 top-[18%] z-10 select-none whitespace-nowrap px-2 text-center font-display text-[11.5vw] font-extrabold uppercase leading-[0.88] tracking-[-0.03em] text-[#F04E18] will-change-transform sm:top-[16%] sm:text-[12.6vw] lg:top-[8%] lg:text-[13.5vw]"
       >
         ANKUR FULZELE
       </h1>
 
-      {/* LOCKED HERO RIG (z-20): Aspect-Locked Shared Unit lifted higher on mobile so ANKUR FULZELE sits right behind the 3D objects! */}
+      {/* LOCKED HERO RIG (z-20): Aspect-Locked Shared Unit centered cleanly above social icons on mobile! */}
       <div ref={heroRigRef} className="absolute inset-0 z-20 will-change-transform">
         <div
           style={{
@@ -216,7 +216,7 @@ export function Section1Hero() {
         >
           <div
             ref={headContainerRef}
-            className="relative bottom-[3svh] aspect-[1/1.05] w-[100vw] max-w-[470px] sm:-bottom-[6vh] sm:w-[82vw] sm:max-w-[610px] lg:-bottom-[20vh] lg:w-[740px] lg:max-w-[740px]"
+            className="relative bottom-[14svh] aspect-[1/1.05] w-[90vw] max-w-[410px] sm:-bottom-[6vh] sm:w-[82vw] sm:max-w-[610px] lg:-bottom-[20vh] lg:w-[740px] lg:max-w-[740px]"
           >
             {/* 3D Canvas — locked to the top 68% of the head box so the 5 props sit directly inside the torn forehead! */}
             <div className="absolute inset-x-0 -top-[6%] z-10 h-[72%] w-full">
