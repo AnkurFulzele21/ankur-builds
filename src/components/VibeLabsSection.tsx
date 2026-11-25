@@ -487,8 +487,8 @@ export function VibeLabsSection({ subscriberCount }: VibeLabsSectionProps) {
           }}
           className="relative flex h-[62svh] w-full cursor-grab select-none items-center justify-center touch-pan-y will-change-transform active:cursor-grabbing sm:h-[66svh]"
         >
-          {/* Left / Right Quick-Slide Controls */}
-          <div className="pointer-events-none absolute inset-x-3 bottom-2 z-40 flex items-center justify-center gap-3 sm:bottom-4">
+          {/* Left / Right Quick-Slide Controls (positioned cleanly below cards on mobile!) */}
+          <div className="pointer-events-none absolute inset-x-3 -bottom-4 z-40 flex items-center justify-center gap-3 sm:bottom-2">
             <button
               type="button"
               aria-label="Slide cards left"
@@ -524,7 +524,7 @@ export function VibeLabsSection({ subscriberCount }: VibeLabsSectionProps) {
                   cardRefs.current[idx] = el;
                 }}
                 style={{ zIndex: isHovered ? 45 : 20 + idx }}
-                className="absolute left-1/2 top-[54%] will-change-transform sm:top-[56%]"
+                className="absolute left-1/2 top-[45%] will-change-transform sm:top-[54%]"
               >
                 <motion.div
                   onMouseEnter={() => setHoveredIdx(idx)}
