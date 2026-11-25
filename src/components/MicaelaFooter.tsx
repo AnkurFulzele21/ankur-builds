@@ -49,22 +49,22 @@ export function MicaelaFooter({
     target: footerRef,
     offset: ["start 0.92", "end end"],
   });
-  const smooth = useSpring(scrollYProgress, { stiffness: 85, damping: 22 });
+  const smooth = useSpring(scrollYProgress, { stiffness: 110, damping: 24 });
 
   // Marquee, Portrait Cutout, Speech Bubble & Bottom Pills each rise smoothly from below at distinct parallax depths!
-  const marqueeY = useTransform(smooth, [0, 1], [220, 0]);
+  const marqueeY = useTransform(smooth, [0, 1], [120, 0]);
   const marqueeOpacity = useTransform(smooth, [0.05, 0.55], [0, 1]);
 
-  const cutoutY = useTransform(smooth, [0.08, 1], [360, 0]);
-  const cutoutRotate = useTransform(smooth, [0.08, 1], [-6, 0]);
-  const cutoutScale = useTransform(smooth, [0.08, 1], [0.9, 1]);
+  const cutoutY = useTransform(smooth, [0.08, 1], [200, 0]);
+  const cutoutRotate = useTransform(smooth, [0.08, 1], [-4, 0]);
+  const cutoutScale = useTransform(smooth, [0.08, 1], [0.94, 1]);
 
-  const bubbleY = useTransform(smooth, [0.35, 1], [150, 0]);
-  const bubbleScale = useTransform(smooth, [0.35, 0.92], [0.35, 1]);
-  const bubbleRotate = useTransform(smooth, [0.35, 0.95], [-16, 0]);
+  const bubbleY = useTransform(smooth, [0.35, 1], [95, 0]);
+  const bubbleScale = useTransform(smooth, [0.35, 0.92], [0.45, 1]);
+  const bubbleRotate = useTransform(smooth, [0.35, 0.95], [-12, 0]);
   const bubbleOpacity = useTransform(smooth, [0.35, 0.72], [0, 1]);
 
-  const bottomBarY = useTransform(smooth, [0.45, 1], [85, 0]);
+  const bottomBarY = useTransform(smooth, [0.45, 1], [55, 0]);
   const bottomBarOpacity = useTransform(smooth, [0.45, 0.88], [0, 1]);
 
   function handleMouseMove(e: React.MouseEvent<HTMLElement>) {
@@ -117,7 +117,7 @@ export function MicaelaFooter({
       ref={footerRef}
       onMouseMove={handleMouseMove}
       className={`relative z-10 flex w-full flex-col justify-end overflow-x-clip bg-transparent text-[#F8EAE0] ${
-        compact ? "min-h-[54vh] sm:min-h-[60vh]" : "min-h-[88vh]"
+        compact ? "min-h-[54vh] sm:min-h-[60vh]" : "min-h-[76svh] sm:min-h-[88vh]"
       }`}
     >
       {/* Top Minimal Corner Tags */}
@@ -211,10 +211,10 @@ export function MicaelaFooter({
         />
       </div>
 
-      {/* BOTTOM-LEFT: Legal & Newsletter Links (stacked cleanly above socials on mobile!) */}
+      {/* BOTTOM-LEFT: Legal & Newsletter Links (single sleek row above socials on mobile!) */}
       <motion.div
         style={{ y: bottomBarY, opacity: bottomBarOpacity }}
-        className="absolute bottom-16 left-1/2 z-40 flex -translate-x-1/2 flex-wrap items-center justify-center gap-1.5 will-change-transform sm:bottom-7 sm:left-8 sm:translate-x-0 sm:gap-2"
+        className="absolute bottom-[62px] left-1/2 z-40 flex -translate-x-1/2 flex-nowrap items-center justify-center gap-1.5 whitespace-nowrap will-change-transform sm:bottom-7 sm:left-8 sm:translate-x-0 sm:gap-2"
       >
         {[
           { label: "Privacy", href: "/privacy" },
@@ -224,7 +224,7 @@ export function MicaelaFooter({
           <Link
             key={item.href}
             href={item.href}
-            className="inline-flex items-center rounded-full border-2 border-[#0E1B2A] bg-[#F8EAE0] px-3 py-1 font-mono-tech text-[9.5px] font-bold uppercase tracking-wider text-[#0E1B2A] shadow-[2px_2px_0px_#0E1B2A] transition hover:-translate-y-0.5 hover:bg-white sm:px-3.5 sm:py-1.5 sm:text-[10.5px] sm:shadow-[3px_3px_0px_#0E1B2A]"
+            className="inline-flex items-center rounded-full border-2 border-[#0E1B2A] bg-[#F8EAE0]/95 px-2.5 py-0.5 font-display text-[10.5px] font-bold text-[#0E1B2A] shadow-[2px_2px_0px_#0E1B2A] backdrop-blur-sm transition hover:-translate-y-0.5 hover:bg-white sm:px-3.5 sm:py-1.5 sm:text-[11.5px] sm:shadow-[3px_3px_0px_#0E1B2A]"
           >
             {item.label}
           </Link>
@@ -234,7 +234,7 @@ export function MicaelaFooter({
       {/* BOTTOM-RIGHT: Crisp Social Icon Buttons (centered bottom on mobile, right-aligned on desktop!) */}
       <motion.div
         style={{ y: bottomBarY, opacity: bottomBarOpacity }}
-        className="absolute bottom-4 left-1/2 z-40 flex -translate-x-1/2 items-center gap-2 will-change-transform sm:bottom-7 sm:left-auto sm:right-8 sm:translate-x-0 sm:gap-2.5"
+        className="absolute bottom-3.5 left-1/2 z-40 flex -translate-x-1/2 items-center gap-2 will-change-transform sm:bottom-7 sm:left-auto sm:right-8 sm:translate-x-0 sm:gap-2.5"
       >
         {socials.map((s) => {
           const Icon = s.icon;

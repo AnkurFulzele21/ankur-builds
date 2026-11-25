@@ -458,7 +458,12 @@ export function LandingExperience({
 
   // Butter-smooth momentum scroll synced 1:1 with GSAP ScrollTrigger!
   useEffect(() => {
-    const lenis = new Lenis({ duration: 1.1, smoothWheel: true });
+    const lenis = new Lenis({
+      duration: 0.95,
+      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+      smoothWheel: true,
+      syncTouch: false,
+    });
     lenis.on("scroll", ScrollTrigger.update);
 
     const tick = (time: number) => {
@@ -630,7 +635,7 @@ export function LandingExperience({
         <div
           ref={creamMorphTriggerRef}
           aria-hidden="true"
-          className="pointer-events-none relative h-[22vh] w-full"
+          className="pointer-events-none relative h-[10vh] w-full sm:h-[18vh]"
         />
         <VibeLabsSection projects={projects} subscriberCount={subscriberCount} />
       </div>
@@ -642,7 +647,7 @@ export function LandingExperience({
       <div ref={navyToOrangeWorldRef} className="relative -mt-1 w-full bg-[#0E1B2A]">
         <section
           id="about"
-          className="relative z-30 bg-transparent pb-10 pt-8 sm:pt-12"
+          className="relative z-30 bg-transparent pb-4 pt-6 sm:pb-10 sm:pt-12"
         >
           {/* Winding Orange Roadmap enters smoothly right after the pinned Philosophy quote finishes and glides up! */}
           <WindingRoadmapSection />
@@ -653,7 +658,7 @@ export function LandingExperience({
         <div
           ref={orangeMorphTriggerRef}
           aria-hidden="true"
-          className="pointer-events-none relative h-[32vh] w-full"
+          className="pointer-events-none relative h-[12vh] w-full sm:h-[22vh]"
         />
 
         <NewsletterBentoSection posts={posts} subscriberCount={subscriberCount} />

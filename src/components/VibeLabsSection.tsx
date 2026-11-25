@@ -115,7 +115,7 @@ export function VibeLabsSection({ subscriberCount }: VibeLabsSectionProps) {
       title: "SaaS Vibes",
       subtitle:
         "Self-hosted Beehiiv-style publishing studio with block editor, 7-day sequences & Wed/Sun drops.",
-      metric: `${subscriberCount > 0 ? `${subscriberCount}+` : "Wed & Sun"} Readers`,
+      metric: "Wed & Sun Drops",
       href: "/vibe-labs",
       bg: "#1D2D24",
       text: "#F8EAE0",
@@ -140,14 +140,14 @@ export function VibeLabsSection({ subscriberCount }: VibeLabsSectionProps) {
           isTablet: boolean;
         };
 
-        const stepDeg = isMobile ? 16 : isTablet ? 14 : 12.2;
-        const startAngle = isMobile ? 40 : 46;
+        const stepDeg = isMobile ? 22 : isTablet ? 15.5 : 12.2;
+        const startAngle = isMobile ? 32 : 46;
         const endAngle = -((totalCards - 1) * stepDeg + startAngle);
 
         function layoutArc(progress: number) {
           const vw = typeof window !== "undefined" ? window.innerWidth : 1280;
           const radius = isMobile
-            ? Math.max(460, vw * 1.25)
+            ? Math.max(520, vw * 1.45)
             : isTablet
               ? Math.max(680, vw * 1.05)
               : Math.max(820, Math.min(1320, vw * 0.92));
@@ -158,8 +158,8 @@ export function VibeLabsSection({ subscriberCount }: VibeLabsSectionProps) {
             const angleDeg = baseAngle + idx * stepDeg;
             const rad = (angleDeg * Math.PI) / 180;
             const x = radius * Math.sin(rad);
-            const y = radius * (1 - Math.cos(rad)) * 0.85 + (isMobile ? 10 : 24);
-            const rot = angleDeg * 0.85;
+            const y = radius * (1 - Math.cos(rad)) * 0.85 + (isMobile ? 8 : 24);
+            const rot = angleDeg * (isMobile ? 0.65 : 0.85);
             const distFromCenter = Math.abs(angleDeg);
             const opacity = distFromCenter > 54 ? Math.max(0, 1 - (distFromCenter - 54) / 14) : 1;
 
@@ -183,11 +183,11 @@ export function VibeLabsSection({ subscriberCount }: VibeLabsSectionProps) {
           scrollTrigger: {
             trigger: stageRef.current,
             start: "top top",
-            end: isMobile ? "+=520%" : "+=820%",
+            end: isMobile ? "+=380%" : "+=760%",
             pin: true,
             anticipatePin: 1,
             invalidateOnRefresh: true,
-            scrub: isMobile ? 0.95 : 1.15,
+            scrub: isMobile ? 0.6 : 0.95,
           },
         });
 
@@ -420,7 +420,7 @@ export function VibeLabsSection({ subscriberCount }: VibeLabsSectionProps) {
                     href={card.href}
                     data-cursor="read"
                     style={{ backgroundColor: card.bg, color: card.text }}
-                    className={`group flex h-[43svh] min-h-[295px] max-h-[430px] w-[72vw] max-w-[270px] flex-col justify-between overflow-hidden rounded-[22px] border border-black/10 p-5 transition-shadow duration-300 sm:h-[48svh] sm:min-h-[340px] sm:w-[320px] sm:max-w-none sm:rounded-[24px] sm:p-7 lg:w-[365px] ${
+                    className={`group flex h-[41svh] min-h-[285px] max-h-[430px] w-[64vw] max-w-[248px] flex-col justify-between overflow-hidden rounded-[22px] border border-black/10 p-5 transition-shadow duration-300 sm:h-[48svh] sm:min-h-[340px] sm:w-[320px] sm:max-w-none sm:rounded-[24px] sm:p-7 lg:w-[365px] ${
                       isHovered
                         ? "shadow-[0_36px_74px_rgba(14,27,42,0.42)]"
                         : "shadow-[0_20px_44px_rgba(14,27,42,0.26)]"

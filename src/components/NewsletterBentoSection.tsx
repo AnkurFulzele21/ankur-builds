@@ -38,33 +38,31 @@ export function NewsletterBentoSection({
     target: sectionRef,
     offset: ["start end", "end start"],
   });
-  const smooth = useSpring(scrollYProgress, { stiffness: 88, damping: 24 });
+  const smooth = useSpring(scrollYProgress, { stiffness: 120, damping: 26 });
 
-  // Stronger storytelling upward parallax layers (02:53-03:24 in Video 3.32.21 PM!)
-  const headerY = useTransform(smooth, [0, 0.32, 1], [150, 0, -120]);
-  const headerOpacity = useTransform(smooth, [0.02, 0.2], [0, 1]);
+  // Tight, silky upward parallax layers (zero dead orange space on mobile!)
+  const headerY = useTransform(smooth, [0, 0.28, 1], [60, 0, -45]);
+  const headerOpacity = useTransform(smooth, [0.02, 0.18], [0, 1]);
 
-  const row1Y = useTransform(smooth, [0.08, 0.44, 1], [230, 0, -105]);
-  const row1Opacity = useTransform(smooth, [0.08, 0.26], [0, 1]);
+  const row1Y = useTransform(smooth, [0.06, 0.36, 1], [90, 0, -40]);
+  const row1Opacity = useTransform(smooth, [0.06, 0.22], [0, 1]);
 
-  const row2Y = useTransform(smooth, [0.16, 0.54, 1], [310, 0, -85]);
-  const row2Opacity = useTransform(smooth, [0.16, 0.35], [0, 1]);
-
-  const ctaY = useTransform(smooth, [0.24, 0.6, 1], [120, 0, -40]);
-  const ctaOpacity = useTransform(smooth, [0.24, 0.44], [0, 1]);
+  const ctaY = useTransform(smooth, [0.2, 0.52, 1], [55, 0, -24]);
+  const ctaOpacity = useTransform(smooth, [0.2, 0.38], [0, 1]);
 
   // Clamped upward reveal (never drops downward into the footer and never shifts on click!)
-  const subscribeY = useTransform(smooth, [0.3, 0.66, 1], [48, 0, -18]);
-  const subscribeScale = useTransform(smooth, [0.3, 0.62], [0.96, 1]);
-  const subscribeOpacity = useTransform(smooth, [0.3, 0.5], [0, 1]);
+  const subscribeY = useTransform(smooth, [0.26, 0.58, 1], [36, 0, -14]);
+  const subscribeScale = useTransform(smooth, [0.26, 0.54], [0.97, 1]);
+  const subscribeOpacity = useTransform(smooth, [0.26, 0.44], [0, 1]);
 
-  const topSix = Array.from({ length: 6 }, (_, idx) => posts[idx] || null);
+  // Show only REAL published posts (no fake "Issue #04/#05/#06 Upcoming" filler cards!)
+  const visiblePosts = posts.slice(0, 6);
 
   return (
     <section
       id="newsletter-sec"
       ref={sectionRef}
-      className="relative z-20 bg-transparent px-5 pb-28 pt-10 text-white sm:px-8 sm:pb-36 sm:pt-14"
+      className="relative z-20 bg-transparent px-5 pb-16 pt-6 text-white sm:px-8 sm:pb-28 sm:pt-12"
     >
       <div className="mx-auto max-w-6xl">
         {/* Scroll-Scrubbed Upward Storytelling Header */}
@@ -75,24 +73,28 @@ export function NewsletterBentoSection({
           <p className="font-display text-xl font-bold tracking-[-0.03em] text-[#0E1B2A]/90 sm:text-2xl">
             Read Weekly
           </p>
-          <h2 className="mt-2 font-display text-4xl font-extrabold uppercase leading-[0.94] tracking-[-0.04em] text-[#F8EAE0] sm:text-6xl">
+          <h2 className="mt-2 font-display text-4xl font-extrabold leading-[0.96] tracking-[-0.04em] text-[#F8EAE0] sm:text-6xl">
             SaaS Vibes Newsletter
           </h2>
         </motion.div>
 
-        {/* 3x2 Apple-Glass Grid — Uniform vertical flow on mobile/tablet so cards NEVER overlap! */}
+        {/* Apple-Glass Grid — Uniform vertical flow on mobile/tablet so cards NEVER overlap! */}
         <motion.div
           style={{ y: row1Y, opacity: row1Opacity }}
-          className="mt-12 grid grid-cols-1 gap-6 will-change-transform sm:mt-20 sm:grid-cols-2 sm:gap-7 lg:grid-cols-3"
+          className={`mt-10 grid grid-cols-1 gap-6 will-change-transform sm:mt-16 sm:gap-7 ${
+            visiblePosts.length <= 2
+              ? "mx-auto max-w-4xl sm:grid-cols-2"
+              : "sm:grid-cols-2 lg:grid-cols-3"
+          }`}
         >
-          {topSix.map((post, idx) => {
+          {visiblePosts.map((post, idx) => {
             const isHovered = hoveredIdx === idx;
             const tiltAngle = idx % 2 === 0 ? -4 : 4;
-            const href = post ? `/newsletter/${post.slug}` : "/newsletter";
-            const title = post?.title || `Issue #0${idx + 1} — Shipping Micro-SaaS With AI`;
-            const category = post?.category || "Vibe Coding";
-            const readTime = post?.read_time || "4 min";
-            const dateStr = post ? formatDate(post.published_at || post.created_at) : "Upcoming";
+            const href = `/newsletter/${post.slug}`;
+            const title = post.title;
+            const category = post.category || "Vibe Coding";
+            const readTime = post.read_time || "4 min";
+            const dateStr = formatDate(post.published_at || post.created_at);
 
             return (
               <div
@@ -201,9 +203,9 @@ export function NewsletterBentoSection({
 
           <div className="relative z-10 grid items-center gap-6 lg:grid-cols-12">
             <div className="lg:col-span-6">
-              <span className="inline-flex items-center gap-1.5 rounded-full border border-white/25 bg-white/15 px-3 py-1 font-mono-tech text-[10.5px] font-bold uppercase tracking-widest text-[#F8EAE0]">
+              <span className="inline-flex items-center gap-1.5 rounded-full border border-white/25 bg-white/15 px-3 py-1 font-display text-[12px] font-bold text-[#F8EAE0]">
                 <Sparkles className="h-3.5 w-3.5" />
-                {subscriberCount} Builders Subscribed
+                Wed &amp; Sun · Free Playbook
               </span>
               <h3 className="mt-3 font-display text-2xl font-bold leading-tight tracking-[-0.03em] text-white sm:text-3xl">
                 Get the weekly playbook straight to your inbox.
