@@ -121,9 +121,19 @@ export function MicaelaFooter({
       }`}
     >
       {/* Top Minimal Corner Tags */}
-      <div className="pointer-events-none absolute left-6 right-6 top-7 z-30 flex items-center justify-between font-mono-tech text-[11px] font-bold uppercase tracking-widest text-[#F8EAE0]/90 sm:left-10 sm:right-10">
-        <span>ANKURFULZELE.IN</span>
-        <span className="hidden sm:inline">VIBE-CODING STUDIO · INDIA</span>
+      <div className="pointer-events-none absolute left-6 right-6 top-7 z-40 flex items-center justify-between font-display text-[12px] font-bold tracking-[0.06em] text-[#F8EAE0]/90 sm:left-10 sm:right-10">
+        <Link
+          href="/"
+          onClick={() => {
+            if (typeof window !== "undefined" && window.location.pathname === "/") {
+              window.scrollTo({ top: 0, behavior: "smooth" });
+            }
+          }}
+          className="pointer-events-auto uppercase transition hover:text-white hover:underline"
+        >
+          ANKURFULZELE.IN
+        </Link>
+        <span className="hidden uppercase sm:inline">VIBE-CODING STUDIO · INDIA</span>
       </div>
 
       {/* Interactive Cursor Sticker Trail (overflow-visible so stickers NEVER crop at top border!) */}

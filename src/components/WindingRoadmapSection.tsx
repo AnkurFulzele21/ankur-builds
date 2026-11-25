@@ -81,64 +81,44 @@ export function WindingRoadmapSection() {
     const ctx = gsap.context(() => {
       const pathEl = livePathRef.current;
       const mobPathEl = mobileLivePathRef.current;
-      if (!pathEl) return;
 
-      // Normalized pathLength={1} works even when an SVG starts hidden across responsive breakpoints!
-      gsap.set([pathEl, mobPathEl], {
-        strokeDasharray: 1,
-        strokeDashoffset: 1,
-      });
+      const setStrokeProgress = (progress: number) => {
+        const clamped = Math.max(0, Math.min(1, progress));
+        [pathEl, mobPathEl].forEach((el) => {
+          if (!el) return;
+          const len = el.getTotalLength();
+          if (len > 0) {
+            el.style.strokeDasharray = `${len}`;
+            el.style.strokeDashoffset = `${len * (1 - clamped)}`;
+          }
+        });
+      };
 
+      setStrokeProgress(0);
       gsap.set(endCapRef.current, { scale: 0, transformOrigin: "center center" });
+
+      const strokeProxy = { p: 0 };
 
       const tl = gsap.timeline({
         scrollTrigger: {
           trigger: containerRef.current,
-          start: "top 82%",
-          end: "bottom 96%",
-          scrub: 0.75,
+          start: "top 75%",
+          end: "bottom 85%",
+          scrub: 0.65,
           invalidateOnRefresh: true,
+          onRefresh: () => setStrokeProgress(strokeProxy.p),
         },
       });
 
-      if (mobPathEl) {
-        tl.to(
-          mobPathEl,
-          {
-            strokeDashoffset: 0,
-            duration: 0.94,
-            ease: "none",
-          },
-          0
-        );
-      }
-
       tl.to(
-        pathEl,
+        strokeProxy,
         {
-          strokeDashoffset: 0.62,
-          duration: 0.28,
-          ease: "power1.out",
+          p: 1,
+          duration: 0.94,
+          ease: "none",
+          onUpdate: () => setStrokeProgress(strokeProxy.p),
         },
         0
-      );
-      tl.to(
-        pathEl,
-        {
-          strokeDashoffset: 0.28,
-          duration: 0.34,
-          ease: "none",
-        },
-        0.28
-      );
-      tl.to(
-        pathEl,
-        {
-          strokeDashoffset: 0,
-          duration: 0.32,
-          ease: "power1.inOut",
-        },
-        0.62
       );
 
       // Pop in the left-edge exit cap right as the orange line finishes at t = 0.92
@@ -206,7 +186,6 @@ export function WindingRoadmapSection() {
         <path
           ref={mobileLivePathRef}
           d={ROADMAP_PATH_MOBILE}
-          pathLength={1}
           stroke="#F04E18"
           strokeWidth="6"
           strokeLinecap="round"
@@ -233,10 +212,10 @@ export function WindingRoadmapSection() {
         <path
           ref={livePathRef}
           d={ROADMAP_PATH_DESKTOP}
-          pathLength={1}
           stroke="#F04E18"
           strokeWidth="7.5"
           strokeLinecap="round"
+          style={{ filter: "drop-shadow(0 0 12px rgba(240, 78, 24, 0.4))" }}
         />
         {/* Entry cap on far right edge */}
         <circle cx="1430" cy="65" r="12" fill="#F04E18" stroke="#0E1B2A" strokeWidth="4" />
