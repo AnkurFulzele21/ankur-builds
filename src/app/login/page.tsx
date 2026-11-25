@@ -33,7 +33,17 @@ export default function AdminLoginPage() {
       if (params.get("error") === "unauthorized") {
         setError("This email is not on the authorized admin list.");
       }
-      if (params.get("mode") === "reset") {
+      const code = params.get("code");
+      if (code) {
+        supabase.auth.exchangeCodeForSession(code).then(({ error: exErr }) => {
+          if (exErr) {
+            setError(exErr.message);
+          } else {
+            setMode("update");
+            setInfo("Recovery verified — enter your new password below.");
+          }
+        });
+      } else if (params.get("mode") === "reset") {
         setMode("update");
       }
     }
